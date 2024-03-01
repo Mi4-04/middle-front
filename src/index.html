@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000" />
+    <title>File storm</title>
+    <link rel="shortcut icon" href="<%= getPublicPath('favicon.ico') %>" />
+  </head>
+  <body style="margin: 0">
+    <div id="app"></div>
+    <%= htmlWebpackPlugin.files.js.map(src => `
+    <script src="${src}" defer nonce="${nonce}"></script>
+    `).join('\n') %>
+  </body>
+</html>

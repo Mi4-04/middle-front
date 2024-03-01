@@ -1,0 +1,29 @@
+overwrite: true
+schema: ${API_URL}
+documents: src/api/operations/*.graphql
+generates:
+  src/api/types.ts:
+    plugins:
+      - typescript
+    config:
+      scalars:
+        DateTime: string
+        Upload: File
+        BlobScalar: Blob
+  src/api:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: types.ts
+      extension: .ts
+      folder: ../hooks
+    plugins:
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      scalars:
+        DateTime: string
+        Upload: File
+
+hooks:
+  afterAllFileWrite:
+    - eslint --fix
