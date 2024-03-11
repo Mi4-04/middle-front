@@ -31,8 +31,7 @@ export default function UnauthorizedLayout({ children }: UnauthorizedLayoutProps
           </Box>
         </Toolbar>
       </AppBar>
-
-      {children}
+      <Container sx={{ mt: 10 }}>{children}</Container>
     </Container>
   )
 }
