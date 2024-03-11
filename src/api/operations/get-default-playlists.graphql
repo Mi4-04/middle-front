@@ -1,0 +1,9 @@
+query GetDefaultPlaylists {
+  getDefaultPlaylists {
+    playlists {
+      id
+      name
+      imageUrl
+    }
+  }
+}
