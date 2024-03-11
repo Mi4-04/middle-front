@@ -1,0 +1,14 @@
+query GetTracksForGuest($query: GetTracksByPlaylistInput!) {
+  getTracksForGuest(query: $query) {
+    tracks {
+      id
+      trackId
+      name
+      artist
+      imageUrl
+      audioUrl
+      available
+    }
+    count
+  }
+}

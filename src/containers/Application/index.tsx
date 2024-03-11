@@ -1,4 +1,6 @@
 import ApolloProvider from "@/providers/ApolloProvider";
+import UserProvider from "@/providers/UserProvider";
+import Root from "@/scenes";
 import { ReactElement } from "react";
 import SessionListener from "./components/SessionEmitter";
 
@@ -7,7 +9,9 @@ function App(): ReactElement {
     <>
       <ApolloProvider>
         <SessionListener />
-        <h1> Root</h1>
+        <UserProvider>
+          <Root />
+        </UserProvider>
       </ApolloProvider>
     </>
   );
