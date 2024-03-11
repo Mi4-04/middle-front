@@ -19,7 +19,7 @@ export default function DefaultPlaylists(): ReactElement {
   }
 
   return (
-    <Container sx={{ width: 800 }}>
+    <Container sx={{ mt: 10, width: 800 }}>
       <ImageList>
         <ImageListItem key="Subheader" cols={2}>
           <ListSubheader component="div">Playlists</ListSubheader>
