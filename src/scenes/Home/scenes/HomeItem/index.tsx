@@ -8,7 +8,6 @@ export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
   const navigate = useNavigate()
 
-  console.log({ playlistId })
   const { data, loading } = useGetTracksForGuestQuery({
     variables: {
       query: {
