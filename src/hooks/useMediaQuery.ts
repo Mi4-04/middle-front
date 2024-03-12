@@ -19,7 +19,6 @@ export default function useMedia(query: string): boolean {
         mediaQuery.removeEventListener('change', handleMediaChange)
       }
     } else {
-      // Support legacy
       mediaQuery.addListener(handleMediaChange)
       return () => {
         mediaQuery.removeListener(handleMediaChange)
