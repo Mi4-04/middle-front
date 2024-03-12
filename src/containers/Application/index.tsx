@@ -1,20 +1,22 @@
-import ApolloProvider from "@/providers/ApolloProvider";
-import UserProvider from "@/providers/UserProvider";
-import Root from "@/scenes";
-import { ReactElement } from "react";
-import SessionListener from "./components/SessionEmitter";
+import ApolloProvider from '@/providers/ApolloProvider'
+import UserProvider from '@/providers/UserProvider'
+import Root from '@/scenes'
+import { ReactElement } from 'react'
+import SessionListener from './components/SessionEmitter'
+import ToastContainer from './components/ToastContainer'
 
 function App(): ReactElement {
   return (
     <>
       <ApolloProvider>
         <SessionListener />
+        <ToastContainer />
         <UserProvider>
           <Root />
         </UserProvider>
       </ApolloProvider>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
