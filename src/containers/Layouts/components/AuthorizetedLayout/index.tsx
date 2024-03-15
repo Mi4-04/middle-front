@@ -42,6 +42,14 @@ export default function AuthroizedLayout({ children }: AuthorizedLayoutProps): R
               variant="h6"
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', cursor: 'pointer' } }}
+              onClick={() => navigate('/search')}
+            >
+              Search track
+            </Typography>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', cursor: 'pointer' } }}
               onClick={() => navigate('/my-playlists')}
             >
               My playlists
