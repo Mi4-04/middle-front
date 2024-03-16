@@ -5,7 +5,7 @@ import { showToast } from '@/utils/toast'
 import { Container, Button, Stack, Grid } from '@mui/material'
 import { ReactElement } from 'react'
 import { Field, Form as FinalForm } from 'react-final-form'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Controlls, Form } from './styles'
 import { TextField } from 'final-form-material-ui'
 import { composeValidators, validators } from '@/utils/final-form'
@@ -16,7 +16,7 @@ type FormValues = {
 }
 
 export default function SignUp(): ReactElement {
-  const { refetch } = useCurrentUser()
+  const { currentUser, refetch } = useCurrentUser()
   const [signUp] = useSignUpMutation()
 
   const navigate = useNavigate()
@@ -40,6 +40,8 @@ export default function SignUp(): ReactElement {
       showToast(getDefaultErrorMessage(e), { type: 'error', autoClose: false })
     }
   }
+
+  if (currentUser != null) return <Navigate to="/home" />
 
   return (
     <Container sx={{ disply: 'flex', alignItems: 'center', justifyContent: 'center', width: '400px', height: '600px', flexDirection: 'column' }}>
