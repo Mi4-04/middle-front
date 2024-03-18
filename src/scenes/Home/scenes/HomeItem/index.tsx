@@ -3,9 +3,13 @@ import { ArrowBack, Search } from '@mui/icons-material'
 import { Avatar, Container, Divider, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from '@mui/material'
 import { ReactElement } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { PlayArrow } from '@mui/icons-material'
+import usePlayer from '@/hooks/usePlayer'
+import { Track } from '@/api/types'
 
 export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
+  const { setTrack } = usePlayer()
   const navigate = useNavigate()
 
   const { data, loading } = useGetTracksForGuestQuery({
@@ -19,6 +23,8 @@ export default function HomeItem(): ReactElement {
   const { tracks = [], count = 0 } = data?.getTracksForGuest ?? {}
 
   const handleBack = (): void => navigate(-1)
+
+  const handlePlayAudio = (track: Track): void => setTrack(track)
 
   if (loading) return <h1>Loading...</h1>
 
@@ -54,6 +60,9 @@ export default function HomeItem(): ReactElement {
                   </Typography>
                 }
               />
+              <IconButton onClick={() => handlePlayAudio({ id, artist, audioUrl, name, available, trackId, imageUrl })}>
+                <PlayArrow />
+              </IconButton>
             </ListItem>
             <Divider variant="inset" component="li" />
           </>

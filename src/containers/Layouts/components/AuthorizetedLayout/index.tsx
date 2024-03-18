@@ -5,6 +5,7 @@ import { useSignOutMutation } from '@/api/hooks/sign-out'
 import { SessionEmitter } from '@/utils/authentication'
 import { showToast } from '@/utils/toast'
 import { getDefaultErrorMessage } from '@/api/api-errors'
+import AudioPlayer from '@/components/AudioPlayer'
 
 type AuthorizedLayoutProps = {
   children: ReactNode
@@ -62,7 +63,9 @@ export default function AuthroizedLayout({ children }: AuthorizedLayoutProps): R
           </Box>
         </Toolbar>
       </AppBar>
-      <Container sx={{ mt: 10 }}>{children}</Container>
+      <Container sx={{ mt: 10 }}>
+        {children} <AudioPlayer />
+      </Container>
     </Container>
   )
 }
