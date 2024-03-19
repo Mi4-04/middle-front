@@ -1,11 +1,14 @@
 import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
-import { ArrowBack, Search } from '@mui/icons-material'
+import { ArrowBack, Search, PlayArrow, Pause } from '@mui/icons-material'
 import { Avatar, Container, Divider, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from '@mui/material'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import usePlayer from '@/hooks/usePlayer'
 
 export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
+  const [playlistState, setPlaylistState] = useState<string>('')
+  const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
   const navigate = useNavigate()
 
   const { data, loading } = useGetTracksForGuestQuery({
@@ -19,6 +22,20 @@ export default function HomeItem(): ReactElement {
   const { tracks = [], count = 0 } = data?.getTracksForGuest ?? {}
 
   const handleBack = (): void => navigate(-1)
+
+  const handleTogglePlay = (index: number, trackId: string): void => {
+    if (trackIndex === index && playlistId === playlistState) {
+      if (trackStates[trackId]) audioRef?.current?.audio.current?.pause()
+      else audioRef?.current?.audio.current?.play()
+
+      setTrackState(trackId, !trackStates[trackId])
+    } else {
+      setPlaylistState(playlistId)
+      setTracks(tracks)
+      setTrackIndex(index)
+      setTrackState(trackId, true)
+    }
+  }
 
   if (loading) return <h1>Loading...</h1>
 
@@ -40,8 +57,8 @@ export default function HomeItem(): ReactElement {
           }}
           variant="standard"
         />
-        {tracks.map(({ id, available, name, audioUrl, trackId, artist, imageUrl }) => (
-          <>
+        {tracks.map(({ id, available, name, trackId, artist, imageUrl }, index) => (
+          <div key={id ?? trackId}>
             <ListItem alignItems="flex-start" sx={{ background: available ? 'white' : '#b0aeae' }}>
               <ListItemAvatar>
                 <Avatar alt={name} src={imageUrl ?? ''} />
@@ -54,9 +71,10 @@ export default function HomeItem(): ReactElement {
                   </Typography>
                 }
               />
+              <IconButton onClick={() => handleTogglePlay(index, trackId)}>{trackStates[trackId] ? <Pause /> : <PlayArrow />}</IconButton>
             </ListItem>
             <Divider variant="inset" component="li" />
-          </>
+          </div>
         ))}
       </List>
     </Container>

@@ -1,4 +1,5 @@
 import ApolloProvider from '@/providers/ApolloProvider'
+import PlayerProvider from '@/providers/PlayerProvider'
 import UserProvider from '@/providers/UserProvider'
 import Root from '@/scenes'
 import { ReactElement } from 'react'
@@ -9,11 +10,13 @@ function App(): ReactElement {
   return (
     <>
       <ApolloProvider>
-        <SessionListener />
-        <ToastContainer />
-        <UserProvider>
-          <Root />
-        </UserProvider>
+        <PlayerProvider>
+          <SessionListener />
+          <ToastContainer />
+          <UserProvider>
+            <Root />
+          </UserProvider>
+        </PlayerProvider>
       </ApolloProvider>
     </>
   )
