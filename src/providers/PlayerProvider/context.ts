@@ -2,13 +2,17 @@ import { Track } from '@/api/types'
 import { createContext } from 'react'
 
 export type PlayerContextType = {
-  track: Track | null
-  setTrack: (value: Track | null) => void
+  tracks: Track[]
+  setTracks: (value: Track[]) => void
+  trackIndex: number | null
+  setTrackIndex: (value: number | null) => void
 }
 
 const defaultContextValue = {
-  track: null,
-  setTrack: () => {}
+  tracks: [],
+  setTracks: () => {},
+  trackIndex: null,
+  setTrackIndex: () => {}
 }
 
 const PlayerContext = createContext<PlayerContextType>(defaultContextValue)

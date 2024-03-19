@@ -5,11 +5,10 @@ import { ReactElement } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { PlayArrow } from '@mui/icons-material'
 import usePlayer from '@/hooks/usePlayer'
-import { Track } from '@/api/types'
 
 export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
-  const { setTrack } = usePlayer()
+  const { setTracks, setTrackIndex } = usePlayer()
   const navigate = useNavigate()
 
   const { data, loading } = useGetTracksForGuestQuery({
@@ -24,7 +23,10 @@ export default function HomeItem(): ReactElement {
 
   const handleBack = (): void => navigate(-1)
 
-  const handlePlayAudio = (track: Track): void => setTrack(track)
+  const handlePlayAudio = (index: number): void => {
+    setTracks(tracks)
+    setTrackIndex(index)
+  }
 
   if (loading) return <h1>Loading...</h1>
 
@@ -46,8 +48,8 @@ export default function HomeItem(): ReactElement {
           }}
           variant="standard"
         />
-        {tracks.map(({ id, available, name, audioUrl, trackId, artist, imageUrl }) => (
-          <>
+        {tracks.map(({ id, available, name, trackId, artist, imageUrl }, index) => (
+          <div key={id ?? trackId}>
             <ListItem alignItems="flex-start" sx={{ background: available ? 'white' : '#b0aeae' }}>
               <ListItemAvatar>
                 <Avatar alt={name} src={imageUrl ?? ''} />
@@ -60,12 +62,12 @@ export default function HomeItem(): ReactElement {
                   </Typography>
                 }
               />
-              <IconButton onClick={() => handlePlayAudio({ id, artist, audioUrl, name, available, trackId, imageUrl })}>
+              <IconButton onClick={() => handlePlayAudio(index)}>
                 <PlayArrow />
               </IconButton>
             </ListItem>
             <Divider variant="inset" component="li" />
-          </>
+          </div>
         ))}
       </List>
     </Container>

@@ -5,13 +5,16 @@ import PlayerContext from './context'
 type PlayerProviderProps = PropsWithChildren<{}>
 
 export default function PlayerProvider({ children }: PlayerProviderProps): ReactElement {
-  const [track, setTrack] = useState<Track | null>(null)
+  const [tracks, setTracks] = useState<Track[]>([])
+  const [trackIndex, setTrackIndex] = useState<number | null>(null)
 
   return (
     <PlayerContext.Provider
       value={{
-        track,
-        setTrack
+        tracks,
+        setTracks,
+        trackIndex,
+        setTrackIndex
       }}
     >
       {children}
