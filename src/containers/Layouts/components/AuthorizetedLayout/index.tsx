@@ -63,7 +63,7 @@ export default function AuthroizedLayout({ children }: AuthorizedLayoutProps): R
           </Box>
         </Toolbar>
       </AppBar>
-      <Container sx={{ mt: 10 }}>
+      <Container sx={{ mt: 10, position: 'relative' }}>
         {children} <AudioPlayer />
       </Container>
     </Container>

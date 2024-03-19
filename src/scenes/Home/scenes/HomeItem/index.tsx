@@ -1,14 +1,13 @@
 import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
-import { ArrowBack, Search } from '@mui/icons-material'
+import { ArrowBack, Search, PlayArrow, Pause } from '@mui/icons-material'
 import { Avatar, Container, Divider, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from '@mui/material'
 import { ReactElement } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { PlayArrow } from '@mui/icons-material'
 import usePlayer from '@/hooks/usePlayer'
 
 export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
-  const { setTracks, setTrackIndex } = usePlayer()
+  const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
   const navigate = useNavigate()
 
   const { data, loading } = useGetTracksForGuestQuery({
@@ -23,9 +22,17 @@ export default function HomeItem(): ReactElement {
 
   const handleBack = (): void => navigate(-1)
 
-  const handlePlayAudio = (index: number): void => {
-    setTracks(tracks)
-    setTrackIndex(index)
+  const handleTogglePlay = (index: number, trackId: string): void => {
+    if (trackIndex === index) {
+      if (trackStates[trackId]) audioRef?.current?.audio.current?.pause()
+      else audioRef?.current?.audio.current?.play()
+
+      setTrackState(trackId, !trackStates[trackId])
+    } else {
+      setTracks(tracks)
+      setTrackIndex(index)
+      setTrackState(trackId, true)
+    }
   }
 
   if (loading) return <h1>Loading...</h1>
@@ -62,9 +69,7 @@ export default function HomeItem(): ReactElement {
                   </Typography>
                 }
               />
-              <IconButton onClick={() => handlePlayAudio(index)}>
-                <PlayArrow />
-              </IconButton>
+              <IconButton onClick={() => handleTogglePlay(index, trackId)}>{trackStates[trackId] ? <Pause /> : <PlayArrow />}</IconButton>
             </ListItem>
             <Divider variant="inset" component="li" />
           </div>

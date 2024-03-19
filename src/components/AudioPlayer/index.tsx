@@ -5,11 +5,11 @@ import 'react-h5-audio-player/lib/styles.css'
 import { HeaderContainer, Image, NameContainer } from './styles'
 
 export default function AudioPlayer(): ReactElement | null {
-  const { tracks, trackIndex, setTrackIndex } = usePlayer()
+  const { audioRef, tracks, trackIndex, setTrackIndex, setTrackState } = usePlayer()
 
   if (tracks.length === 0 || trackIndex == null) return null
 
-  const { name, audioUrl, artist, imageUrl } = tracks[trackIndex]
+  const { name, audioUrl, trackId, artist, imageUrl } = tracks[trackIndex]
 
   const handlePrevTrack = (): void => {
     if (trackIndex - 1 < 0) {
@@ -35,20 +35,23 @@ export default function AudioPlayer(): ReactElement | null {
 
   const getHeader = (): ReactElement => (
     <HeaderContainer>
-      {imageUrl != null ? <Image src={imageUrl} /> : null}
+      {imageUrl != null ? <Image src={imageUrl} alt="image" /> : null}
       <NameContainer>
         <p>{name}</p>
-        <p>{artist}</p>
+        <p>{artist ?? `Unknown`}</p>
       </NameContainer>
     </HeaderContainer>
   )
 
   return (
     <AudioPlayerBase
+      ref={audioRef}
       src={audioUrl}
       hasDefaultKeyBindings
       showSkipControls
       autoPlay
+      onPause={() => setTrackState(trackId, false)}
+      onPlay={() => setTrackState(trackId, true)}
       onClickNext={handleNextTrack}
       onClickPrevious={handlePrevTrack}
       onEnded={handleEndedTrack}
