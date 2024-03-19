@@ -8,7 +8,7 @@ export type PlayerContextType = {
   trackIndex: number | null
   setTrackIndex: (value: number | null) => void
   trackStates: Record<string, boolean>
-  setTrackState: (trackId: string, value: boolean) => void
+  setTrackState: (realId: string, value: boolean) => void
   audioRef?: React.RefObject<H5AudioPlayer>
 }
 

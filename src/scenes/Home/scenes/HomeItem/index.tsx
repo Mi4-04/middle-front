@@ -23,17 +23,17 @@ export default function HomeItem(): ReactElement {
 
   const handleBack = (): void => navigate(-1)
 
-  const handleTogglePlay = (index: number, trackId: string): void => {
+  const handleTogglePlay = (index: number, realId: string): void => {
     if (trackIndex === index && playlistId === playlistState) {
-      if (trackStates[trackId]) audioRef?.current?.audio.current?.pause()
+      if (trackStates[realId]) audioRef?.current?.audio.current?.pause()
       else audioRef?.current?.audio.current?.play()
 
-      setTrackState(trackId, !trackStates[trackId])
+      setTrackState(realId, !trackStates[realId])
     } else {
       setPlaylistState(playlistId)
       setTracks(tracks)
       setTrackIndex(index)
-      setTrackState(trackId, true)
+      setTrackState(realId, true)
     }
   }
 
@@ -57,8 +57,8 @@ export default function HomeItem(): ReactElement {
           }}
           variant="standard"
         />
-        {tracks.map(({ id, available, name, trackId, artist, imageUrl }, index) => (
-          <div key={id ?? trackId}>
+        {tracks.map(({ id, available, name, realId, artist, imageUrl }, index) => (
+          <div key={id ?? realId}>
             <ListItem alignItems="flex-start" sx={{ background: available ? 'white' : '#b0aeae' }}>
               <ListItemAvatar>
                 <Avatar alt={name} src={imageUrl ?? ''} />
@@ -71,7 +71,7 @@ export default function HomeItem(): ReactElement {
                   </Typography>
                 }
               />
-              <IconButton onClick={() => handleTogglePlay(index, trackId)}>{trackStates[trackId] ? <Pause /> : <PlayArrow />}</IconButton>
+              <IconButton onClick={() => handleTogglePlay(index, realId)}>{trackStates[realId] ? <Pause /> : <PlayArrow />}</IconButton>
             </ListItem>
             <Divider variant="inset" component="li" />
           </div>
