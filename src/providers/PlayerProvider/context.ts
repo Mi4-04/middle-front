@@ -1,6 +1,6 @@
 import { Track } from '@/api/types'
 import React, { createContext } from 'react'
-import AudioPlayerBase from 'react-h5-audio-player'
+import H5AudioPlayer from 'react-h5-audio-player'
 
 export type PlayerContextType = {
   tracks: Track[]
@@ -9,7 +9,7 @@ export type PlayerContextType = {
   setTrackIndex: (value: number | null) => void
   trackStates: Record<string, boolean>
   setTrackState: (trackId: string, value: boolean) => void
-  audioRef?: React.RefObject<AudioPlayerBase>
+  audioRef?: React.RefObject<H5AudioPlayer>
 }
 
 const defaultContextValue = {

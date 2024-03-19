@@ -1,6 +1,6 @@
 import usePlayer from '@/hooks/usePlayer'
 import { ReactElement } from 'react'
-import AudioPlayerBase from 'react-h5-audio-player'
+import H5AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 import { HeaderContainer, Image, NameContainer } from './styles'
 
@@ -44,7 +44,7 @@ export default function AudioPlayer(): ReactElement | null {
   )
 
   return (
-    <AudioPlayerBase
+    <H5AudioPlayer
       ref={audioRef}
       src={audioUrl}
       hasDefaultKeyBindings
