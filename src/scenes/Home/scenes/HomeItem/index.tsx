@@ -1,12 +1,13 @@
 import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
 import { ArrowBack, Search, PlayArrow, Pause } from '@mui/icons-material'
 import { Avatar, Container, Divider, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from '@mui/material'
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import usePlayer from '@/hooks/usePlayer'
 
 export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
+  const [playlistState, setPlaylistState] = useState<string>('')
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
   const navigate = useNavigate()
 
@@ -23,12 +24,13 @@ export default function HomeItem(): ReactElement {
   const handleBack = (): void => navigate(-1)
 
   const handleTogglePlay = (index: number, trackId: string): void => {
-    if (trackIndex === index) {
+    if (trackIndex === index && playlistId === playlistState) {
       if (trackStates[trackId]) audioRef?.current?.audio.current?.pause()
       else audioRef?.current?.audio.current?.play()
 
       setTrackState(trackId, !trackStates[trackId])
     } else {
+      setPlaylistState(playlistId)
       setTracks(tracks)
       setTrackIndex(index)
       setTrackState(trackId, true)
