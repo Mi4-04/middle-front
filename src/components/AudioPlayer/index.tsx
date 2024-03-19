@@ -9,7 +9,7 @@ export default function AudioPlayer(): ReactElement | null {
 
   if (tracks.length === 0 || trackIndex == null) return null
 
-  const { name, audioUrl, trackId, artist, imageUrl } = tracks[trackIndex]
+  const { name, audioUrl, realId, artist, imageUrl } = tracks[trackIndex]
 
   const handlePrevTrack = (): void => {
     if (trackIndex - 1 < 0) {
@@ -50,8 +50,8 @@ export default function AudioPlayer(): ReactElement | null {
       hasDefaultKeyBindings
       showSkipControls
       autoPlay
-      onPause={() => setTrackState(trackId, false)}
-      onPlay={() => setTrackState(trackId, true)}
+      onPause={() => setTrackState(realId, false)}
+      onPlay={() => setTrackState(realId, true)}
       onClickNext={handleNextTrack}
       onClickPrevious={handlePrevTrack}
       onEnded={handleEndedTrack}

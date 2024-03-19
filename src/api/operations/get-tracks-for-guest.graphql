@@ -2,7 +2,7 @@ query GetTracksForGuest($query: GetTracksByPlaylistInput!) {
   getTracksForGuest(query: $query) {
     tracks {
       id
-      trackId
+      realId
       name
       artist
       imageUrl

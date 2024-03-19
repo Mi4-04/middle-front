@@ -8,7 +8,7 @@ export type GetTracksForGuestQueryVariables = Types.Exact<{
 }>;
 
 
-export type GetTracksForGuestQuery = { __typename?: 'Query', getTracksForGuest: { __typename?: 'TracksOutput', count: number, tracks: Array<{ __typename?: 'Track', id?: string | null, trackId: string, name: string, artist?: string | null, imageUrl?: string | null, audioUrl: string, available: boolean }> } };
+export type GetTracksForGuestQuery = { __typename?: 'Query', getTracksForGuest: { __typename?: 'TracksOutput', count: number, tracks: Array<{ __typename?: 'Track', id?: string | null, realId: string, name: string, artist?: string | null, imageUrl?: string | null, audioUrl: string, available: boolean }> } };
 
 
 export const GetTracksForGuestDocument = gql`
@@ -16,7 +16,7 @@ export const GetTracksForGuestDocument = gql`
   getTracksForGuest(query: $query) {
     tracks {
       id
-      trackId
+      realId
       name
       artist
       imageUrl

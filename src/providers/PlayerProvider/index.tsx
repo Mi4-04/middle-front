@@ -15,16 +15,16 @@ export default function PlayerProvider({ children }: PlayerProviderProps): React
     if (trackIndex !== null && tracks[trackIndex]?.id) {
       setTrackStates(prevState => ({
         ...prevState,
-        [tracks[trackIndex].trackId]: false
+        [tracks[trackIndex].realId]: false
       }))
     }
     setTrackIndex(index)
   }
 
-  const setTrackState = (trackId: string, value: boolean): void => {
+  const setTrackState = (realId: string, value: boolean): void => {
     setTrackStates(prevState => ({
       ...prevState,
-      [trackId]: value
+      [realId]: value
     }))
   }
 

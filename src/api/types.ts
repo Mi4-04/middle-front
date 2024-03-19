@@ -113,7 +113,7 @@ export type Track = {
   id?: Maybe<Scalars['String']['output']>;
   imageUrl?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
-  trackId: Scalars['String']['output'];
+  realId: Scalars['String']['output'];
 };
 
 export type TrackInput = {
@@ -121,7 +121,7 @@ export type TrackInput = {
   audioUrl: Scalars['String']['input'];
   imageUrl?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
-  trackId: Scalars['String']['input'];
+  realId: Scalars['String']['input'];
 };
 
 export type TracksOutput = {
@@ -133,7 +133,7 @@ export type TracksOutput = {
 export type UpdatePlaylistInput = {
   playlistId: Scalars['String']['input'];
   track?: InputMaybe<TrackInput>;
-  trackEntityId?: InputMaybe<Scalars['String']['input']>;
+  trackId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type User = {
