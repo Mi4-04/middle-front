@@ -4,9 +4,12 @@ import { Avatar, Container, Divider, IconButton, InputAdornment, List, ListItem,
 import { ReactElement, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import usePlayer from '@/hooks/usePlayer'
+import usePagination from '@/hooks/usePagination'
+import Paginate from '@/components/Paginate'
 
 export default function HomeItem(): ReactElement {
   const { playlistId = '' } = useParams()
+  const pagination = usePagination({ limit: 50 })
   const [playlistState, setPlaylistState] = useState<string>('')
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
   const navigate = useNavigate()
@@ -14,7 +17,8 @@ export default function HomeItem(): ReactElement {
   const { data, loading } = useGetTracksForGuestQuery({
     variables: {
       query: {
-        playlistId
+        playlistId,
+        pagination: pagination.value
       }
     }
   })
@@ -71,11 +75,14 @@ export default function HomeItem(): ReactElement {
                   </Typography>
                 }
               />
-              <IconButton onClick={() => handleTogglePlay(index, realId)}>{trackStates[realId] ? <Pause /> : <PlayArrow />}</IconButton>
+              <IconButton disabled={!available} onClick={() => handleTogglePlay(index, realId)}>
+                {trackStates[realId] ? <Pause /> : <PlayArrow />}
+              </IconButton>
             </ListItem>
             <Divider variant="inset" component="li" />
           </div>
         ))}
+        <Paginate pagination={pagination} totalCount={count} />
       </List>
     </Container>
   )
