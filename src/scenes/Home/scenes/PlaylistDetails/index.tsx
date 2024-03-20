@@ -1,17 +1,20 @@
 import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
-import { ArrowBack, Search } from '@mui/icons-material'
-import { Container, IconButton, InputAdornment, List, TextField } from '@mui/material'
+import { ArrowBack } from '@mui/icons-material'
+import { Container, IconButton, List } from '@mui/material'
 import { ReactElement, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
 import Paginate from '@/components/Paginate'
 import TrackItem from '@/components/TrackItem'
+import SearchBar from '@/components/SearchBar'
+import useSearch from '@/hooks/useSearch'
 
 export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()
   const pagination = usePagination({ limit: 50 })
   const [playlistState, setPlaylistState] = useState<string>('')
+  const search = useSearch({ onChange: () => pagination.reset() })
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
   const navigate = useNavigate()
 
@@ -19,7 +22,8 @@ export default function PlaylistDetails(): ReactElement {
     variables: {
       query: {
         playlistId,
-        pagination: pagination.value
+        pagination: pagination.value,
+        search: search.value
       }
     }
   })
@@ -50,18 +54,7 @@ export default function PlaylistDetails(): ReactElement {
         <ArrowBack />
       </IconButton>
       <List sx={{ width: '100%', maxWidth: 450 }}>
-        <TextField
-          name="search"
-          sx={{ margin: '0 0 20px 25px' }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            )
-          }}
-          variant="standard"
-        />
+        <SearchBar value={search.value} onChange={search.change} />
         {tracks.map((track, index) => (
           <TrackItem key={index} track={track} index={index} onTogglePlay={handleTogglePlay} />
         ))}
