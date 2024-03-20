@@ -20,7 +20,7 @@ export default function Root(): ReactElement {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/sign-in" element={<SignIn />} />
             <Route path="/search" element={<Search />} />
-            <Route path="/my-playlists" element={<PrivateRoute element={<MyPlaylists />} />} />
+            <Route path="/my-playlists/*" element={<PrivateRoute element={<MyPlaylists />} />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </Route>
         </Routes>

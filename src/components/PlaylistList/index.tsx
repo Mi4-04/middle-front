@@ -14,18 +14,20 @@ export default function PlaylistList(props: PlaylistListProps): ReactElement {
   const { list, onClick, title } = props
 
   return (
-    <Container sx={{ width: '100%', maxWidth: 800 }}>
-      <ImageList>
-        <ImageListItem key="Subheader" cols={2}>
-          {title != null ? <ListSubheader component="div">{title}</ListSubheader> : null}
+    <ImageList>
+      <ImageListItem key="Subheader" cols={3}>
+        {title != null ? <ListSubheader component="div">{title}</ListSubheader> : null}
+      </ImageListItem>
+      {list.map(({ id, name, imageUrl }) => (
+        <ImageListItem
+          key={id}
+          onClick={() => onClick(id)}
+          sx={{ cursor: 'pointer', margin: '0 2rem 2rem 0', maxWidth: '20rem', width: '100%', height: '20rem' }}
+        >
+          {imageUrl != null ? <Image src={`${imageUrl}`} alt={name} /> : <Image src={defaultImage} alt={name} />}
+          <ImageListItemBar title={name} sx={{ maxWidth: 'fit-content', fontSize: 22, fontWeight: 'bold' }} />
         </ImageListItem>
-        {list.map(({ id, name, imageUrl }) => (
-          <ImageListItem key={id} onClick={() => onClick(id)} sx={{ cursor: 'pointer', margin: '0 2 rem 2rem 0' }}>
-            {imageUrl != null ? <Image src={`${imageUrl}`} alt={name} /> : <Image src={defaultImage} alt={name} />}
-            <ImageListItemBar title={name} sx={{ maxWidth: 'fit-content', fontSize: 22, fontWeight: 'bold' }} />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </Container>
+      ))}
+    </ImageList>
   )
 }
