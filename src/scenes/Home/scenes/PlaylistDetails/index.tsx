@@ -1,13 +1,14 @@
 import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
-import { ArrowBack, Search, PlayArrow, Pause } from '@mui/icons-material'
-import { Avatar, Container, Divider, IconButton, InputAdornment, List, ListItem, ListItemAvatar, ListItemText, TextField, Typography } from '@mui/material'
+import { ArrowBack, Search } from '@mui/icons-material'
+import { Container, IconButton, InputAdornment, List, TextField } from '@mui/material'
 import { ReactElement, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
 import Paginate from '@/components/Paginate'
+import TrackItem from '@/components/TrackItem'
 
-export default function HomeItem(): ReactElement {
+export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()
   const pagination = usePagination({ limit: 50 })
   const [playlistState, setPlaylistState] = useState<string>('')
@@ -61,26 +62,8 @@ export default function HomeItem(): ReactElement {
           }}
           variant="standard"
         />
-        {tracks.map(({ id, available, name, realId, artist, imageUrl }, index) => (
-          <div key={id ?? realId}>
-            <ListItem alignItems="flex-start" sx={{ background: available ? 'white' : '#b0aeae' }}>
-              <ListItemAvatar>
-                <Avatar alt={name} src={imageUrl ?? ''} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={name}
-                secondary={
-                  <Typography sx={{ display: 'inline' }} component="span" variant="body2" color="text.primary">
-                    {artist}
-                  </Typography>
-                }
-              />
-              <IconButton disabled={!available} onClick={() => handleTogglePlay(index, realId)}>
-                {trackStates[realId] ? <Pause /> : <PlayArrow />}
-              </IconButton>
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </div>
+        {tracks.map((track, index) => (
+          <TrackItem key={index} track={track} index={index} onTogglePlay={handleTogglePlay} />
         ))}
         <Paginate pagination={pagination} totalCount={count} />
       </List>
