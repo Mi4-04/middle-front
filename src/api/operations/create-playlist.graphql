@@ -1,0 +1,9 @@
+mutation CreatePlaylist($input: CreatePlaylistInput!) {
+  createPlaylist(input: $input) {
+    playlists {
+      id
+      name
+      imageUrl
+    }
+  }
+}

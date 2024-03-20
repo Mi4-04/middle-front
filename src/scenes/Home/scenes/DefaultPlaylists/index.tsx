@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useGetDefaultPlaylistsQuery } from '@/api/hooks/get-default-playlists'
 import PlaylistList from '@/components/PlaylistList'
+import { Container } from '@mui/material'
 
 export default function DefaultPlaylists(): ReactElement {
   const naviagate = useNavigate()
@@ -15,5 +16,9 @@ export default function DefaultPlaylists(): ReactElement {
     naviagate(`/home/${id}`)
   }
 
-  return <PlaylistList list={defaultPlaylists} onClick={handleClick} title={`Playlists`} />
+  return (
+    <Container>
+      <PlaylistList list={defaultPlaylists} onClick={handleClick} title={`Playlists`} />
+    </Container>
+  )
 }

@@ -19,6 +19,10 @@ export type AuthInput = {
   password: Scalars['String']['input'];
 };
 
+export type CreatePlaylistInput = {
+  name: Scalars['String']['input'];
+};
+
 export type CurrentUserOutput = {
   __typename?: 'CurrentUserOutput';
   currentUser?: Maybe<User>;
@@ -32,11 +36,17 @@ export type GetTracksByPlaylistInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createPlaylist: PlaylistsOutput;
   deletePlaylist: PlaylistsOutput;
   signIn: CurrentUserOutput;
   signOut: CurrentUserOutput;
   signUp: CurrentUserOutput;
   updatePlaylist: StatusOutput;
+};
+
+
+export type MutationCreatePlaylistArgs = {
+  input: CreatePlaylistInput;
 };
 
 
