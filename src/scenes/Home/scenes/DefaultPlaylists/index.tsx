@@ -1,9 +1,7 @@
-import { useGetDefaultPlaylistsQuery } from '@/api/hooks/get-default-playlists'
-import { Container, ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
 import { ReactElement } from 'react'
-import { Image } from './styles'
-import defaultImage from './assets/default-img.png'
 import { useNavigate } from 'react-router-dom'
+import { useGetDefaultPlaylistsQuery } from '@/api/hooks/get-default-playlists'
+import PlaylistList from '@/components/PlaylistList'
 
 export default function DefaultPlaylists(): ReactElement {
   const naviagate = useNavigate()
@@ -17,19 +15,5 @@ export default function DefaultPlaylists(): ReactElement {
     naviagate(`/home/${id}`)
   }
 
-  return (
-    <Container sx={{ width: '100%', maxWidth: 800 }}>
-      <ImageList>
-        <ImageListItem key="Subheader" cols={2}>
-          <ListSubheader component="div">Playlists</ListSubheader>
-        </ImageListItem>
-        {defaultPlaylists.map(item => (
-          <ImageListItem key={item.id} onClick={() => handleClick(item.id)} sx={{ cursor: 'pointer', margin: '0 2 rem 2rem 0' }}>
-            {item.imageUrl != null ? <Image src={`${item.imageUrl}`} alt={item.name} /> : <Image src={defaultImage} />}
-            <ImageListItemBar title={item.name} sx={{ maxWidth: 'fit-content', fontSize: 22, fontWeight: 'bold' }} />
-          </ImageListItem>
-        ))}
-      </ImageList>
-    </Container>
-  )
+  return <PlaylistList list={defaultPlaylists} onClick={handleClick} title={`Playlists`} />
 }
