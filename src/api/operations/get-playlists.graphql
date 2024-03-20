@@ -1,0 +1,9 @@
+query GetPlaylists($trackId: String) {
+  getPlaylists(trackId: $trackId) {
+    playlists {
+      id
+      name
+      imageUrl
+    }
+  }
+}
