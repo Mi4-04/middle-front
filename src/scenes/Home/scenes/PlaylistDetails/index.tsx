@@ -49,7 +49,7 @@ export default function PlaylistDetails(): ReactElement {
   if (loading) return <h1>Loading...</h1>
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'space-around' }}>
+    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
       <IconButton sx={{ display: 'flex', width: 20, height: 20, alignItems: 'flex-start' }} onClick={handleBack}>
         <ArrowBack />
       </IconButton>
