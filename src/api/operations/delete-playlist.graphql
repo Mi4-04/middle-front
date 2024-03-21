@@ -1,0 +1,9 @@
+mutation DeletePlaylist($id: String!) {
+  deletePlaylist(id: $id) {
+    playlists {
+      id
+      name
+      imageUrl
+    }
+  }
+}

@@ -4,12 +4,11 @@ import { useGetPlaylistsQuery } from '@/api/hooks/get-playlists'
 import PlaylistListBase from '@/components/PlaylistList'
 import AddPlaylist from './components/AddPlaylist'
 import { Container } from '@mui/material'
-import { useCreatePlaylistMutation } from '@/api/hooks/create-playlist'
-import { showToast } from '@/utils/toast'
-import { getDefaultErrorMessage } from '@/api/api-errors'
+import { useDeletePlaylistMutation } from '@/api/hooks/delete-playlist'
 
 export default function PlaylistList(): ReactElement {
   const { data, loading, refetch } = useGetPlaylistsQuery()
+  const [deletePlaylist] = useDeletePlaylistMutation()
   const navigate = useNavigate()
 
   if (loading) return <h1>Loading...</h1>
@@ -24,10 +23,15 @@ export default function PlaylistList(): ReactElement {
     await refetch()
   }
 
+  const handleDeletePlaylist = async (id: string): Promise<void> => {
+    await deletePlaylist({ variables: { id } })
+    await refetch()
+  }
+
   return (
     <Container>
       <AddPlaylist onRefreshList={handleRefreshList} />
-      <PlaylistListBase list={playlists} onClick={handleClick} />
+      <PlaylistListBase list={playlists} onClick={handleClick} onDeletePlaylist={handleDeletePlaylist} />
     </Container>
   )
 }
