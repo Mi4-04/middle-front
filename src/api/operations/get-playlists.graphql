@@ -1,5 +1,5 @@
-query GetPlaylists($trackId: String) {
-  getPlaylists(trackId: $trackId) {
+query GetPlaylists($realId: String) {
+  getPlaylists(realId: $realId) {
     playlists {
       id
       name

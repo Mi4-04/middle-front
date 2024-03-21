@@ -1,0 +1,5 @@
+mutation UpdatePlaylist($input: UpdatePlaylistInput!) {
+  updatePlaylist(input: $input) {
+    status
+  }
+}

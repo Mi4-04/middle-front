@@ -22,8 +22,7 @@ export default function PlayerProvider({ children }: PlayerProviderProps): React
   }
 
   const setTrackState = (realId: string, value: boolean): void => {
-    setTrackStates(prevState => ({
-      ...prevState,
+    setTrackStates(() => ({
       [realId]: value
     }))
   }

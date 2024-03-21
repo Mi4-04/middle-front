@@ -97,7 +97,7 @@ export type Query = {
 
 
 export type QueryGetPlaylistsArgs = {
-  trackId?: InputMaybe<Scalars['String']['input']>;
+  realId?: InputMaybe<Scalars['String']['input']>;
 };
 
 

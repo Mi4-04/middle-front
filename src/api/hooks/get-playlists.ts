@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetPlaylistsQueryVariables = Types.Exact<{
-  trackId?: Types.InputMaybe<Types.Scalars['String']['input']>;
+  realId?: Types.InputMaybe<Types.Scalars['String']['input']>;
 }>;
 
 
@@ -12,8 +12,8 @@ export type GetPlaylistsQuery = { __typename?: 'Query', getPlaylists: { __typena
 
 
 export const GetPlaylistsDocument = gql`
-    query GetPlaylists($trackId: String) {
-  getPlaylists(trackId: $trackId) {
+    query GetPlaylists($realId: String) {
+  getPlaylists(realId: $realId) {
     playlists {
       id
       name
@@ -35,7 +35,7 @@ export const GetPlaylistsDocument = gql`
  * @example
  * const { data, loading, error } = useGetPlaylistsQuery({
  *   variables: {
- *      trackId: // value for 'trackId'
+ *      realId: // value for 'realId'
  *   },
  * });
  */
