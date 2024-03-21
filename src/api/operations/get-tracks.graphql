@@ -1,5 +1,5 @@
-query GetTracksForGuest($query: GetTrackListInput!) {
-  getTracksForGuest(query: $query) {
+query GetTracks($query: GetTrackListInput!) {
+  getTracks(query: $query) {
     tracks {
       id
       realId

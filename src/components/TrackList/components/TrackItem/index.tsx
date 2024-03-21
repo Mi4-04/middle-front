@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { Track } from '@/api/types'
 import usePlayer from '@/hooks/usePlayer'
 import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
-import { PlayArrow, Pause } from '@mui/icons-material'
+import { PlayArrow, Pause, Delete } from '@mui/icons-material'
 import useCurrentUser from '@/hooks/useCurrentUser'
 import AddTrack from './components/AddTrack'
 
@@ -10,12 +10,13 @@ type TrackItemProps = {
   track: Track
   index: number
   onTogglePlay: (index: number, realId: string) => void
-  onUpdatePlaylist?: (track: Track, playlistId: string) => Promise<void>
+  onAddTrack?: (track: Track, playlistId: string) => void
+  onDeleteTrack?: (trackId: string) => void
 }
 
 export default function TrackItem(props: TrackItemProps): ReactElement {
-  const { track, index, onTogglePlay, onUpdatePlaylist } = props
-  const { realId, name, artist, available, imageUrl } = track
+  const { track, index, onTogglePlay, onAddTrack, onDeleteTrack } = props
+  const { id, realId, name, artist, available, imageUrl } = track
 
   const { currentUser } = useCurrentUser()
   const { trackStates } = usePlayer()
@@ -34,7 +35,12 @@ export default function TrackItem(props: TrackItemProps): ReactElement {
             </Typography>
           }
         />
-        {currentUser != null && onUpdatePlaylist != null ? <AddTrack track={track} onUpdatePlaylist={onUpdatePlaylist} /> : null}
+        {currentUser != null && onAddTrack != null ? <AddTrack track={track} onUpdatePlaylist={onAddTrack} /> : null}
+        {currentUser != null && onDeleteTrack != null && id != null ? (
+          <IconButton onClick={() => onDeleteTrack(id)}>
+            <Delete />
+          </IconButton>
+        ) : null}
         <IconButton disabled={!available} onClick={() => onTogglePlay(index, realId)}>
           {trackStates[realId] ? <Pause /> : <PlayArrow />}
         </IconButton>

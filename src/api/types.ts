@@ -28,7 +28,7 @@ export type CurrentUserOutput = {
   currentUser?: Maybe<User>;
 };
 
-export type GetTracksByPlaylistInput = {
+export type GetTrackListInput = {
   pagination?: InputMaybe<PaginationModel>;
   playlistId?: InputMaybe<Scalars['String']['input']>;
   search?: InputMaybe<Scalars['String']['input']>;
@@ -102,12 +102,12 @@ export type QueryGetPlaylistsArgs = {
 
 
 export type QueryGetTracksArgs = {
-  query: GetTracksByPlaylistInput;
+  query: GetTrackListInput;
 };
 
 
 export type QueryGetTracksForGuestArgs = {
-  query: GetTracksByPlaylistInput;
+  query: GetTrackListInput;
 };
 
 export type StatusOutput = {
