@@ -6,7 +6,7 @@ import { IconButton, Menu, MenuItem } from '@mui/material'
 
 type AddTrackProps = {
   track: Track
-  onUpdatePlaylist: (track: Track, playlistId: string) => Promise<void>
+  onUpdatePlaylist: (track: Track, playlistId: string) => void
 }
 
 const ITEM_HEIGHT = 48
@@ -24,7 +24,7 @@ export default function AddTrack({ track, onUpdatePlaylist }: AddTrackProps): Re
   }
   const handleClose = (): void => setAnchorEl(null)
 
-  const handleAddTrackToPlaylist = async (playlistId: string): Promise<void> => {
+  const handleAddTrackToPlaylist = (playlistId: string): void => {
     onUpdatePlaylist(track, playlistId)
     handleClose()
   }
@@ -52,7 +52,7 @@ export default function AddTrack({ track, onUpdatePlaylist }: AddTrackProps): Re
         }}
       >
         {playlists.map(({ id, name }) => (
-          <MenuItem key={id} sx={{ dislay: 'flex', justifyContent: 'space-between' }} onClick={async () => handleAddTrackToPlaylist(id)}>
+          <MenuItem key={id} sx={{ dislay: 'flex', justifyContent: 'space-between' }} onClick={() => handleAddTrackToPlaylist(id)}>
             {name} <Add />
           </MenuItem>
         ))}

@@ -1,14 +1,10 @@
-import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
-import { ArrowBack } from '@mui/icons-material'
-import { Container, IconButton, List } from '@mui/material'
 import { ReactElement, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
+import { useParams } from 'react-router-dom'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
-import Paginate from '@/components/Paginate'
-import TrackItem from '@/components/TrackItem'
-import SearchBar from '@/components/SearchBar'
 import useSearch from '@/hooks/useSearch'
+import TrackList from '@/components/TrackList'
 
 export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()
@@ -16,7 +12,6 @@ export default function PlaylistDetails(): ReactElement {
   const [playlistState, setPlaylistState] = useState<string>('')
   const search = useSearch({ onChange: () => pagination.reset() })
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
-  const navigate = useNavigate()
 
   const { data, loading } = useGetTracksForGuestQuery({
     variables: {
@@ -29,8 +24,6 @@ export default function PlaylistDetails(): ReactElement {
   })
 
   const { tracks = [], count = 0 } = data?.getTracksForGuest ?? {}
-
-  const handleBack = (): void => navigate(-1)
 
   const handleTogglePlay = (index: number, realId: string): void => {
     if (trackIndex === index && playlistId === playlistState) {
@@ -48,18 +41,5 @@ export default function PlaylistDetails(): ReactElement {
 
   if (loading) return <h1>Loading...</h1>
 
-  return (
-    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-      <IconButton sx={{ display: 'flex', width: 20, height: 20, alignItems: 'flex-start' }} onClick={handleBack}>
-        <ArrowBack />
-      </IconButton>
-      <List sx={{ width: '100%', maxWidth: 450 }}>
-        <SearchBar value={search.value} onChange={search.change} />
-        {tracks.map((track, index) => (
-          <TrackItem key={index} track={track} index={index} onTogglePlay={handleTogglePlay} />
-        ))}
-        <Paginate pagination={pagination} totalCount={count} />
-      </List>
-    </Container>
-  )
+  return <TrackList tracks={tracks} count={count} pagination={pagination} search={search} onTogglePlay={handleTogglePlay} />
 }
