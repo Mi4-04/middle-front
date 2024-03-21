@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 const defaultOptions = {} as const;
 export type GetTracksForGuestQueryVariables = Types.Exact<{
-  query: Types.GetTracksByPlaylistInput;
+  query: Types.GetTrackListInput;
 }>;
 
 
@@ -12,7 +12,7 @@ export type GetTracksForGuestQuery = { __typename?: 'Query', getTracksForGuest: 
 
 
 export const GetTracksForGuestDocument = gql`
-    query GetTracksForGuest($query: GetTracksByPlaylistInput!) {
+    query GetTracksForGuest($query: GetTrackListInput!) {
   getTracksForGuest(query: $query) {
     tracks {
       id
