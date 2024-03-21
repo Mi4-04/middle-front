@@ -1,10 +1,10 @@
+import { ReactElement } from 'react'
 import { Track } from '@/api/types'
 import usePlayer from '@/hooks/usePlayer'
-import { MouseEvent, ReactElement, useState } from 'react'
-import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText, Menu, MenuItem, Typography } from '@mui/material'
-import { PlayArrow, Pause, Add } from '@mui/icons-material'
+import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
+import { PlayArrow, Pause } from '@mui/icons-material'
 import useCurrentUser from '@/hooks/useCurrentUser'
-import { useGetPlaylistsLazyQuery } from '@/api/hooks/get-playlists'
+import AddTrack from './components/AddTrack'
 
 type TrackItemProps = {
   track: Track
@@ -13,33 +13,12 @@ type TrackItemProps = {
   onUpdatePlaylist?: (track: Track, playlistId: string) => Promise<void>
 }
 
-const ITEM_HEIGHT = 48
-
 export default function TrackItem(props: TrackItemProps): ReactElement {
   const { track, index, onTogglePlay, onUpdatePlaylist } = props
   const { realId, name, artist, available, imageUrl } = track
 
-  const [getPlaylists, { data }] = useGetPlaylistsLazyQuery({ variables: { realId } })
   const { currentUser } = useCurrentUser()
   const { trackStates } = usePlayer()
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-
-  const open = Boolean(anchorEl)
-
-  const handleClick = async (event: MouseEvent<HTMLElement>): Promise<void> => {
-    setAnchorEl(event.currentTarget)
-    if (currentUser != null) {
-      await getPlaylists()
-    }
-  }
-  const handleClose = (): void => setAnchorEl(null)
-
-  const handleAddTrackToPlaylist = async (track: Track, playlistId: string): Promise<void> => {
-    onUpdatePlaylist?.(track, playlistId)
-    handleClose()
-  }
-
-  const playlists = data?.getPlaylists.playlists ?? []
 
   return (
     <>
@@ -55,35 +34,7 @@ export default function TrackItem(props: TrackItemProps): ReactElement {
             </Typography>
           }
         />
-        {currentUser != null && onUpdatePlaylist != null ? (
-          <>
-            <IconButton disabled={!available} onClick={handleClick}>
-              <Add />
-            </IconButton>
-
-            <Menu
-              id="long-menu"
-              MenuListProps={{
-                'aria-labelledby': 'long-button'
-              }}
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              PaperProps={{
-                style: {
-                  maxHeight: ITEM_HEIGHT * 4.5,
-                  width: '20ch'
-                }
-              }}
-            >
-              {playlists.map(({ id, name }) => (
-                <MenuItem key={id} sx={{ dislay: 'flex', justifyContent: 'space-between' }} onClick={async () => handleAddTrackToPlaylist(track, id)}>
-                  {name} <Add />
-                </MenuItem>
-              ))}
-            </Menu>
-          </>
-        ) : null}
+        {currentUser != null && onUpdatePlaylist != null ? <AddTrack track={track} onUpdatePlaylist={onUpdatePlaylist} /> : null}
         <IconButton disabled={!available} onClick={() => onTogglePlay(index, realId)}>
           {trackStates[realId] ? <Pause /> : <PlayArrow />}
         </IconButton>
