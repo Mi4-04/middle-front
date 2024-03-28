@@ -1,7 +1,7 @@
+import { lazy, type ReactElement, Suspense } from 'react'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Layout from '@/containers/Layouts'
 import PrivateRoute from '@/containers/PrivateRoute'
-import { lazy, ReactElement, Suspense } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
 
 const Home = lazy(async () => import('./Home'))
 const SignUp = lazy(async () => import('./SignUp'))

@@ -1,11 +1,11 @@
-import { useGetTracksQuery } from '@/api/hooks/get-tracks'
-import { useUpdatePlaylistMutation } from '@/api/hooks/update-playlist'
-import TrackList from '@/components/TrackList'
+import { type ReactElement, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import usePagination from '@/hooks/usePagination'
 import usePlayer from '@/hooks/usePlayer'
 import useSearch from '@/hooks/useSearch'
-import { ReactElement, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import TrackList from '@/components/TrackList'
+import { useGetTracksQuery } from '@/api/hooks/get-tracks'
+import { useUpdatePlaylistMutation } from '@/api/hooks/update-playlist'
 
 export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()

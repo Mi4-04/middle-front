@@ -1,14 +1,14 @@
-import { getDefaultErrorMessage } from '@/api/api-errors'
-import { useSignUpMutation } from '@/api/hooks/sign-up'
-import useCurrentUser from '@/hooks/useCurrentUser'
-import { showToast } from '@/utils/toast'
-import { Container, Button, Stack, Grid } from '@mui/material'
-import { ReactElement } from 'react'
+import { Button, Container, Grid, Stack } from '@mui/material'
+import { type ReactElement } from 'react'
 import { Field, Form as FinalForm } from 'react-final-form'
 import { Navigate, useNavigate } from 'react-router-dom'
-import { Controlls, Form } from './styles'
 import { TextField } from 'final-form-material-ui'
+import { showToast } from '@/utils/toast'
 import { composeValidators, validators } from '@/utils/final-form'
+import useCurrentUser from '@/hooks/useCurrentUser'
+import { useSignUpMutation } from '@/api/hooks/sign-up'
+import { getDefaultErrorMessage } from '@/api/api-errors'
+import { Controlls, Form } from './styles'
 
 type FormValues = {
   email: string

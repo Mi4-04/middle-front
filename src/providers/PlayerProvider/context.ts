@@ -1,6 +1,7 @@
-import { Track } from '@/api/types'
-import React, { createContext } from 'react'
-import H5AudioPlayer from 'react-h5-audio-player'
+import type React from 'react'
+import { createContext } from 'react'
+import type H5AudioPlayer from 'react-h5-audio-player'
+import { type Track } from '@/api/types'
 
 export type PlayerContextType = {
   tracks: Track[]

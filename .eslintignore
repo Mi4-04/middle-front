@@ -1,0 +1,8 @@
+node_modules
+dist
+public
+src/api/hooks
+.eslintrc.cjs
+babel.config.cjs
+lingui.config.js
+webpack.config.cjs

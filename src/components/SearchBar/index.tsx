@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, FormEvent, ReactElement, useState } from 'react'
+import { type ChangeEvent, type FocusEvent, type FormEvent, type ReactElement, useState } from 'react'
 import { Close, Search } from '@mui/icons-material'
 import { IconButton, InputAdornment, TextField } from '@mui/material'
 import { Form } from './styles'

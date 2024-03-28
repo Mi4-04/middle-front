@@ -1,5 +1,5 @@
+import { type ReactElement, type ReactNode } from 'react'
 import useCurrentUser from '@/hooks/useCurrentUser'
-import { ReactElement, ReactNode } from 'react'
 import AuthroizedLayout from './components/AuthorizetedLayout'
 import UnauthorizedLayout from './components/UnauthorizedLayout'
 

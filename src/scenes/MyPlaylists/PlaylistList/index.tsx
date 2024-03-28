@@ -1,10 +1,10 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useGetPlaylistsQuery } from '@/api/hooks/get-playlists'
-import PlaylistListBase from '@/components/PlaylistList'
-import AddPlaylist from './components/AddPlaylist'
 import { Container } from '@mui/material'
+import PlaylistListBase from '@/components/PlaylistList'
+import { useGetPlaylistsQuery } from '@/api/hooks/get-playlists'
 import { useDeletePlaylistMutation } from '@/api/hooks/delete-playlist'
+import AddPlaylist from './components/AddPlaylist'
 
 export default function PlaylistList(): ReactElement {
   const { data, loading, refetch } = useGetPlaylistsQuery()

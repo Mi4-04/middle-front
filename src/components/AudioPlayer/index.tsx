@@ -1,5 +1,5 @@
 import usePlayer from '@/hooks/usePlayer'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import H5AudioPlayer from 'react-h5-audio-player'
 import 'react-h5-audio-player/lib/styles.css'
 import { HeaderContainer, Image, NameContainer } from './styles'

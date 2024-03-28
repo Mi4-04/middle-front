@@ -1,8 +1,8 @@
-import { MouseEvent, ReactElement, useState } from 'react'
-import { useGetPlaylistsLazyQuery } from '@/api/hooks/get-playlists'
-import { Track } from '@/api/types'
+import { type MouseEvent, type ReactElement, useState } from 'react'
 import { Add } from '@mui/icons-material'
 import { IconButton, Menu, MenuItem } from '@mui/material'
+import { useGetPlaylistsLazyQuery } from '@/api/hooks/get-playlists'
+import { type Track } from '@/api/types'
 
 type AddTrackProps = {
   track: Track

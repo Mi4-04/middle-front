@@ -1,11 +1,11 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { Field, Form as FinalForm } from 'react-final-form'
 import { Button, Grid, Paper, Stack } from '@mui/material'
-import { Controlls, Header } from './styles'
 import { TextField } from 'final-form-material-ui'
 import { showToast } from '@/utils/toast'
 import { getDefaultErrorMessage } from '@/api/api-errors'
 import { useCreatePlaylistMutation } from '@/api/hooks/create-playlist'
+import { Controlls, Header } from './styles'
 
 type ModalFormProps = {
   onRefreshList: () => Promise<void>

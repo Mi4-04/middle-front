@@ -1,10 +1,10 @@
-import { ReactElement, useState } from 'react'
-import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
+import { type ReactElement, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
 import TrackList from '@/components/TrackList'
+import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
 
 export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()

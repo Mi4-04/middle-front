@@ -1,6 +1,6 @@
-import { Track } from '@/api/types'
-import { createRef, PropsWithChildren, ReactElement, useState } from 'react'
-import H5AudioPlayer from 'react-h5-audio-player'
+import { createRef, type PropsWithChildren, type ReactElement, useState } from 'react'
+import type H5AudioPlayer from 'react-h5-audio-player'
+import { type Track } from '@/api/types'
 import PlayerContext from './context'
 
 type PlayerProviderProps = PropsWithChildren<{}>
