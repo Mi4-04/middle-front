@@ -1,11 +1,11 @@
-import { ReactElement, ReactNode } from 'react'
-import { Box, Button, Container, AppBar, Toolbar, Typography } from '@mui/material'
+import { type ReactElement, type ReactNode } from 'react'
+import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useSignOutMutation } from '@/api/hooks/sign-out'
 import { SessionEmitter } from '@/utils/authentication'
 import { showToast } from '@/utils/toast'
-import { getDefaultErrorMessage } from '@/api/api-errors'
 import AudioPlayer from '@/components/AudioPlayer'
+import { getDefaultErrorMessage } from '@/api/api-errors'
+import { useSignOutMutation } from '@/api/hooks/sign-out'
 
 type AuthorizedLayoutProps = {
   children: ReactNode

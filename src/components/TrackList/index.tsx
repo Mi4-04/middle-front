@@ -1,13 +1,13 @@
-import { Track } from '@/api/types'
 import { ArrowBack } from '@mui/icons-material'
 import { Container, IconButton, List } from '@mui/material'
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { type Pagination } from '@/hooks/usePagination'
+import { type Search } from '@/hooks/useSearch'
+import { type Track } from '@/api/types'
 import Paginate from '../Paginate'
 import SearchBar from '../SearchBar'
 import TrackItem from './components/TrackItem'
-import { type Pagination } from '@/hooks/usePagination'
-import { type Search } from '@/hooks/useSearch'
-import { useNavigate } from 'react-router-dom'
 
 type TrackListProps = {
   tracks: Track[]

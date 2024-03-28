@@ -1,6 +1,6 @@
 import { Delete, MoreVert } from '@mui/icons-material'
 import { IconButton, Menu, MenuItem } from '@mui/material'
-import { MouseEvent, ReactElement, useState } from 'react'
+import { type MouseEvent, type ReactElement, useState } from 'react'
 
 type OptionMenuProps = {
   onDeletePlaylist: () => Promise<void>

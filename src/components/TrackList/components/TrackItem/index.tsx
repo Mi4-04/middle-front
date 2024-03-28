@@ -1,9 +1,9 @@
-import { ReactElement } from 'react'
-import { Track } from '@/api/types'
-import usePlayer from '@/hooks/usePlayer'
+import { type ReactElement } from 'react'
 import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
-import { PlayArrow, Pause, Delete } from '@mui/icons-material'
+import { Delete, Pause, PlayArrow } from '@mui/icons-material'
+import usePlayer from '@/hooks/usePlayer'
 import useCurrentUser from '@/hooks/useCurrentUser'
+import { type Track } from '@/api/types'
 import AddTrack from './components/AddTrack'
 
 type TrackItemProps = {

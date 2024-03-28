@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { type ReactElement, useState } from 'react'
 import { Add } from '@mui/icons-material'
 import { DialogContent, IconButton, Modal } from '@mui/material'
 import ModalForm from './components/ModalForm'

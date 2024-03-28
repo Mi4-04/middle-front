@@ -1,11 +1,11 @@
-import { ReactElement } from 'react'
-import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
+import { type ReactElement } from 'react'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
-import { useUpdatePlaylistMutation } from '@/api/hooks/update-playlist'
-import { Track } from '@/api/types'
 import TrackList from '@/components/TrackList'
+import { useUpdatePlaylistMutation } from '@/api/hooks/update-playlist'
+import { type Track } from '@/api/types'
+import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
 
 export default function Search(): ReactElement {
   const pagination = usePagination({ limit: 50 })
@@ -39,13 +39,6 @@ export default function Search(): ReactElement {
   if (loading) return <h1>Loading...</h1>
 
   return (
-    <TrackList
-      tracks={tracks}
-      count={count}
-      pagination={pagination}
-      search={search}
-      onTogglePlay={handleTogglePlay}
-      onAddTrack={handleAddTrackToPlaylist}
-    />
+    <TrackList tracks={tracks} count={count} pagination={pagination} search={search} onTogglePlay={handleTogglePlay} onAddTrack={handleAddTrackToPlaylist} />
   )
 }

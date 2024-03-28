@@ -1,22 +1,22 @@
-import { createContext } from "react";
+import { createContext } from 'react'
 
 export type User = {
-  id: string;
-  email: string;
-};
+  id: string
+  email: string
+}
 
 export type UserContextType = {
-  currentUser: User | null;
-  refetch: () => Promise<void>;
-};
+  currentUser: User | null
+  refetch: () => Promise<void>
+}
 
 const defaultContextValue = {
   currentUser: null,
   refetch: () => {
-    throw new Error("Form context cannot be used outside its provider.");
-  },
-};
+    throw new Error('Form context cannot be used outside its provider.')
+  }
+}
 
-const UserContext = createContext<UserContextType>(defaultContextValue);
+const UserContext = createContext<UserContextType>(defaultContextValue)
 
-export default UserContext;
+export default UserContext

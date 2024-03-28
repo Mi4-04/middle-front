@@ -1,4 +1,4 @@
-import { lazy, ReactElement } from 'react'
+import { lazy, type ReactElement } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 const PlaylistList = lazy(async () => import('./PlaylistList'))

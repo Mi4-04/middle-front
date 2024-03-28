@@ -1,8 +1,8 @@
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useGetDefaultPlaylistsQuery } from '@/api/hooks/get-default-playlists'
-import PlaylistList from '@/components/PlaylistList'
 import { Container } from '@mui/material'
+import PlaylistList from '@/components/PlaylistList'
+import { useGetDefaultPlaylistsQuery } from '@/api/hooks/get-default-playlists'
 
 export default function DefaultPlaylists(): ReactElement {
   const naviagate = useNavigate()
