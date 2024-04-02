@@ -2,7 +2,7 @@ import { type ReactElement } from 'react'
 import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
 import { Delete, Pause, PlayArrow } from '@mui/icons-material'
 import usePlayer from '@/hooks/usePlayer'
-import useCurrentUser from '@/hooks/useCurrentUser'
+import useAuth from '@/hooks/useAuth'
 import { type Track } from '@/api/types'
 import AddTrack from './components/AddTrack'
 
@@ -18,7 +18,7 @@ export default function TrackItem(props: TrackItemProps): ReactElement {
   const { track, index, onTogglePlay, onAddTrack, onDeleteTrack } = props
   const { id, realId, name, artist, available, imageUrl } = track
 
-  const { currentUser } = useCurrentUser()
+  const { accessToken } = useAuth()
   const { trackStates } = usePlayer()
 
   return (
@@ -35,8 +35,8 @@ export default function TrackItem(props: TrackItemProps): ReactElement {
             </Typography>
           }
         />
-        {currentUser != null && onAddTrack != null ? <AddTrack track={track} onUpdatePlaylist={onAddTrack} /> : null}
-        {currentUser != null && onDeleteTrack != null && id != null ? (
+        {accessToken != null && onAddTrack != null ? <AddTrack track={track} onUpdatePlaylist={onAddTrack} /> : null}
+        {accessToken != null && onDeleteTrack != null && id != null ? (
           <IconButton onClick={() => onDeleteTrack(id)}>
             <Delete />
           </IconButton>

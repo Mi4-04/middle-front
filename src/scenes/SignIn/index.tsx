@@ -5,7 +5,7 @@ import { Field, Form as FinalForm } from 'react-final-form'
 import { Button, Container, Grid, Stack } from '@mui/material'
 import { composeValidators, validators } from '@/utils/final-form'
 import { showToast } from '@/utils/toast'
-import useCurrentUser from '@/hooks/useCurrentUser'
+import useAuth from '@/hooks/useAuth'
 import { useSignInMutation } from '@/api/hooks/sign-in'
 import { getDefaultErrorMessage } from '@/api/api-errors'
 import { Controlls, Form } from './styles'
@@ -16,7 +16,7 @@ type FormValues = {
 }
 
 export default function SignIn(): ReactElement {
-  const { currentUser, refetch } = useCurrentUser()
+  const { accessToken, auth } = useAuth()
   const navigate = useNavigate()
   const [signIn] = useSignInMutation()
 
@@ -24,19 +24,21 @@ export default function SignIn(): ReactElement {
     const { email, password } = values
 
     try {
-      await signIn({
+      const { data } = await signIn({
         variables: {
           input: { email, password }
         }
       })
-      refetch()
+
+      const token = data?.signIn.token ?? ''
+      auth(token)
       navigate('/home')
     } catch (e) {
       showToast(getDefaultErrorMessage(e), { autoClose: false, type: 'error' })
     }
   }
 
-  if (currentUser != null) return <Navigate to="/home" />
+  if (accessToken != null) return <Navigate to="/home" />
 
   return (
     <Container sx={{ disply: 'flex', alignItems: 'center', justifyContent: 'center', width: '400px', height: '600px', flexDirection: 'column' }}>

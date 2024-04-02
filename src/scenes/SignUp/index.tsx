@@ -5,7 +5,7 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { TextField } from 'final-form-material-ui'
 import { showToast } from '@/utils/toast'
 import { composeValidators, validators } from '@/utils/final-form'
-import useCurrentUser from '@/hooks/useCurrentUser'
+import useAuth from '@/hooks/useAuth'
 import { useSignUpMutation } from '@/api/hooks/sign-up'
 import { getDefaultErrorMessage } from '@/api/api-errors'
 import { Controlls, Form } from './styles'
@@ -16,7 +16,7 @@ type FormValues = {
 }
 
 export default function SignUp(): ReactElement {
-  const { currentUser, refetch } = useCurrentUser()
+  const { accessToken, auth } = useAuth()
   const [signUp] = useSignUpMutation()
 
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ export default function SignUp(): ReactElement {
     const { email, password } = values
 
     try {
-      await signUp({
+      const { data } = await signUp({
         variables: {
           input: {
             email,
@@ -33,15 +33,18 @@ export default function SignUp(): ReactElement {
           }
         }
       })
+
+      const token = data?.signUp.token ?? ''
+
       showToast('Account created successfully!')
-      refetch()
+      auth(token)
       navigate('/home')
     } catch (e) {
       showToast(getDefaultErrorMessage(e), { type: 'error', autoClose: false })
     }
   }
 
-  if (currentUser != null) return <Navigate to="/home" />
+  if (accessToken != null) return <Navigate to="/home" />
 
   return (
     <Container sx={{ disply: 'flex', alignItems: 'center', justifyContent: 'center', width: '400px', height: '600px', flexDirection: 'column' }}>

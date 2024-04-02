@@ -1,8 +1,5 @@
 mutation SignUp($input: AuthInput!) {
   signUp(input: $input) {
-    currentUser {
-      id
-      email
-    }
+    token
   }
 }

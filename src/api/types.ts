@@ -19,13 +19,13 @@ export type AuthInput = {
   password: Scalars['String']['input']
 }
 
-export type CreatePlaylistInput = {
-  name: Scalars['String']['input']
+export type AuthOutput = {
+  __typename?: 'AuthOutput'
+  token: Scalars['String']['output']
 }
 
-export type CurrentUserOutput = {
-  __typename?: 'CurrentUserOutput'
-  currentUser?: Maybe<User>
+export type CreatePlaylistInput = {
+  name: Scalars['String']['input']
 }
 
 export type GetTrackListInput = {
@@ -38,9 +38,8 @@ export type Mutation = {
   __typename?: 'Mutation'
   createPlaylist: PlaylistsOutput
   deletePlaylist: PlaylistsOutput
-  signIn: CurrentUserOutput
-  signOut: CurrentUserOutput
-  signUp: CurrentUserOutput
+  signIn: AuthOutput
+  signUp: AuthOutput
   updatePlaylist: StatusOutput
 }
 
@@ -83,7 +82,6 @@ export type PlaylistsOutput = {
 
 export type Query = {
   __typename?: 'Query'
-  currentUser: User
   getDefaultPlaylists: PlaylistsOutput
   getPlaylists: PlaylistsOutput
   getTracks: TracksOutput
@@ -136,10 +134,4 @@ export type UpdatePlaylistInput = {
   playlistId: Scalars['String']['input']
   track?: InputMaybe<TrackInput>
   trackId?: InputMaybe<Scalars['String']['input']>
-}
-
-export type User = {
-  __typename?: 'User'
-  email: Scalars['String']['output']
-  id: Scalars['String']['output']
 }

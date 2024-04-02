@@ -1,5 +1,5 @@
 import { type ReactElement, type ReactNode } from 'react'
-import useCurrentUser from '@/hooks/useCurrentUser'
+import useAuth from '@/hooks/useAuth'
 import AuthroizedLayout from './components/AuthorizetedLayout'
 import UnauthorizedLayout from './components/UnauthorizedLayout'
 
@@ -8,8 +8,8 @@ type LayoutProps = {
 }
 
 export default function Layout({ children }: LayoutProps): ReactElement {
-  const { currentUser } = useCurrentUser()
-  const CurrentLayout = currentUser != null ? AuthroizedLayout : UnauthorizedLayout
+  const { accessToken } = useAuth()
+  const CurrentLayout = accessToken != null ? AuthroizedLayout : UnauthorizedLayout
 
   return <CurrentLayout>{children}</CurrentLayout>
 }
