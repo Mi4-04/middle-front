@@ -1,6 +1,6 @@
 import { type ComponentType, createElement, type ReactElement, type ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
-import useCurrentUser from '@/hooks/useCurrentUser'
+import useAuth from '@/hooks/useAuth'
 
 type PrivateRouteProps = {
   children?: ReactNode
@@ -10,9 +10,9 @@ type PrivateRouteProps = {
 
 export default function PrivateRoute(props: PrivateRouteProps): ReactElement | null {
   const { children, element, component } = props
-  const { currentUser } = useCurrentUser()
+  const { accessToken } = useAuth()
 
-  const isAuthenticated = currentUser != null
+  const isAuthenticated = accessToken != null
 
   if (!isAuthenticated) return <Navigate to="/sign-in" />
   if (children) return <>{children}</>

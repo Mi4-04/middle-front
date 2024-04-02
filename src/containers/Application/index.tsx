@@ -1,9 +1,8 @@
 import { type ReactElement } from 'react'
 import ApolloProvider from '@/providers/ApolloProvider'
 import PlayerProvider from '@/providers/PlayerProvider'
-import UserProvider from '@/providers/UserProvider'
+import AuthProvider from '@/providers/AuthProvider'
 import Root from '@/scenes'
-import SessionListener from './components/SessionEmitter'
 import ToastContainer from './components/ToastContainer'
 
 function App(): ReactElement {
@@ -11,11 +10,10 @@ function App(): ReactElement {
     <>
       <ApolloProvider>
         <PlayerProvider>
-          <SessionListener />
           <ToastContainer />
-          <UserProvider>
+          <AuthProvider>
             <Root />
-          </UserProvider>
+          </AuthProvider>
         </PlayerProvider>
       </ApolloProvider>
     </>

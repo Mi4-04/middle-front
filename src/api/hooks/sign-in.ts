@@ -8,16 +8,13 @@ export type SignInMutationVariables = Types.Exact<{
 }>;
 
 
-export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'CurrentUserOutput', currentUser?: { __typename?: 'User', id: string, email: string } | null } };
+export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'AuthOutput', token: string } };
 
 
 export const SignInDocument = gql`
     mutation SignIn($input: AuthInput!) {
   signIn(input: $input) {
-    currentUser {
-      id
-      email
-    }
+    token
   }
 }
     `;

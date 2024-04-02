@@ -1,6 +1,6 @@
 import { ImageList, ImageListItem, ImageListItemBar, ListSubheader } from '@mui/material'
 import { type ReactElement } from 'react'
-import useCurrentUser from '@/hooks/useCurrentUser'
+import useAuth from '@/hooks/useAuth'
 import { type Playlist } from '@/api/types'
 import defaultImage from './assets/default-img.png'
 import OptionMenu from './components/OptionMenu'
@@ -15,7 +15,7 @@ type PlaylistListProps = {
 
 export default function PlaylistList(props: PlaylistListProps): ReactElement {
   const { list, onClick, title, onDeletePlaylist } = props
-  const { currentUser } = useCurrentUser()
+  const { accessToken } = useAuth()
 
   return (
     <ImageList>
@@ -30,7 +30,7 @@ export default function PlaylistList(props: PlaylistListProps): ReactElement {
         >
           {imageUrl != null ? <Image src={`${imageUrl}`} alt={name} /> : <Image src={defaultImage} alt={name} />}
           <ImageListItemBar title={name} sx={{ maxWidth: 'fit-content', fontSize: 22, fontWeight: 'bold' }} />
-          {currentUser != null && onDeletePlaylist != null ? <OptionMenu onDeletePlaylist={async () => onDeletePlaylist(id)} /> : null}
+          {accessToken != null && onDeletePlaylist != null ? <OptionMenu onDeletePlaylist={async () => onDeletePlaylist(id)} /> : null}
         </ImageListItem>
       ))}
     </ImageList>

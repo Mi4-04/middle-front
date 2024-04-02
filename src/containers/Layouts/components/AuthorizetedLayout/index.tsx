@@ -1,11 +1,10 @@
 import { type ReactElement, type ReactNode } from 'react'
 import { AppBar, Box, Button, Container, Toolbar, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { SessionEmitter } from '@/utils/authentication'
 import { showToast } from '@/utils/toast'
+import useAuth from '@/hooks/useAuth'
 import AudioPlayer from '@/components/AudioPlayer'
 import { getDefaultErrorMessage } from '@/api/api-errors'
-import { useSignOutMutation } from '@/api/hooks/sign-out'
 
 type AuthorizedLayoutProps = {
   children: ReactNode
@@ -13,13 +12,11 @@ type AuthorizedLayoutProps = {
 
 export default function AuthroizedLayout({ children }: AuthorizedLayoutProps): ReactElement {
   const navigate = useNavigate()
-  const [signOut, { loading }] = useSignOutMutation()
+  const { logout } = useAuth()
 
-  const handleSignOutClick = async (): Promise<void> => {
-    if (loading) return
+  const handleSignOutClick = (): void => {
     try {
-      await signOut()
-      SessionEmitter.emit('signOut')
+      logout()
       navigate('/sign-in')
     } catch (e) {
       showToast(getDefaultErrorMessage(e), { type: 'error', autoClose: false })
