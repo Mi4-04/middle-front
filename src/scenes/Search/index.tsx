@@ -1,4 +1,4 @@
-import { type ReactElement } from 'react'
+import { useState, type ReactElement } from 'react'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
@@ -9,6 +9,7 @@ import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
 
 export default function Search(): ReactElement {
   const pagination = usePagination({ limit: 50 })
+  const [currentOffset, setCurrentOffset] = useState(pagination.value.offset)
   const search = useSearch({ onChange: () => pagination.reset() })
   const { data, loading } = useGetTracksForGuestQuery({
     variables: { query: { pagination: { limit: 100, offset: pagination.value.offset }, search: search.value } }
@@ -19,7 +20,7 @@ export default function Search(): ReactElement {
   const { tracks = [], count = 0 } = data?.getTracksForGuest ?? {}
 
   const handleTogglePlay = (index: number, realId: string): void => {
-    if (trackIndex === index) {
+    if (trackIndex === index && currentOffset === pagination.value.offset) {
       if (trackStates[realId]) audioRef?.current?.audio.current?.pause()
       else audioRef?.current?.audio.current?.play()
 
@@ -28,6 +29,7 @@ export default function Search(): ReactElement {
       setTracks(tracks)
       setTrackIndex(index)
       setTrackState(realId, true)
+      setCurrentOffset(pagination.value.offset)
     }
   }
 
