@@ -9,7 +9,8 @@ import { useGetTracksForGuestQuery } from '@/api/hooks/get-tracks-for-guest'
 export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()
   const pagination = usePagination({ limit: 50 })
-  const [playlistState, setPlaylistState] = useState<string>('')
+  const [playlistIdState, setPlaylistIdState] = useState<string>('')
+  const [currentOffset, setCurrentOffset] = useState(pagination.value.offset)
   const search = useSearch({ onChange: () => pagination.reset() })
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
 
@@ -26,16 +27,17 @@ export default function PlaylistDetails(): ReactElement {
   const { tracks = [], count = 0 } = data?.getTracksForGuest ?? {}
 
   const handleTogglePlay = (index: number, realId: string): void => {
-    if (trackIndex === index && playlistId === playlistState) {
+    if (trackIndex === index && playlistId === playlistIdState && currentOffset === pagination.value.offset) {
       if (trackStates[realId]) audioRef?.current?.audio.current?.pause()
       else audioRef?.current?.audio.current?.play()
 
       setTrackState(realId, !trackStates[realId])
     } else {
-      setPlaylistState(playlistId)
+      setPlaylistIdState(playlistId)
       setTracks(tracks)
       setTrackIndex(index)
       setTrackState(realId, true)
+      setCurrentOffset(pagination.value.offset)
     }
   }
 
