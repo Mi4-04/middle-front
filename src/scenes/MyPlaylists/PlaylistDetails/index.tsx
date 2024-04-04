@@ -11,7 +11,7 @@ export default function PlaylistDetails(): ReactElement {
   const { playlistId = '' } = useParams()
   const pagination = usePagination({ limit: 50 })
   const [currentOffset, setCurrentOffset] = useState<number>(pagination.value.offset)
-  const [playlistState, setPlaylistState] = useState<string>('')
+  const [playlistIdState, setPlaylistIdState] = useState<string>('')
   const search = useSearch({ onChange: () => pagination.reset() })
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
   const [updatePlaylists] = useUpdatePlaylistMutation()
@@ -28,13 +28,13 @@ export default function PlaylistDetails(): ReactElement {
   const { tracks = [], count = 0 } = data?.getTracks ?? {}
 
   const handleTogglePlay = (index: number, realId: string): void => {
-    if (trackIndex === index && playlistId === playlistState && currentOffset === pagination.value.offset) {
+    if (trackIndex === index && playlistId === playlistIdState && currentOffset === pagination.value.offset) {
       if (trackStates[realId]) audioRef?.current?.audio.current?.pause()
       else audioRef?.current?.audio.current?.play()
 
       setTrackState(realId, !trackStates[realId])
     } else {
-      setPlaylistState(playlistId)
+      setPlaylistIdState(playlistId)
       setTracks(tracks)
       setTrackIndex(index)
       setTrackState(realId, true)
