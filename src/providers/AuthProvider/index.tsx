@@ -1,14 +1,15 @@
-import { useApolloClient } from '@apollo/client'
+import usePlayer from '@/hooks/usePlayer'
 import { jwtDecode } from 'jwt-decode'
-import { type PropsWithChildren, type ReactElement, useCallback, useEffect, useState } from 'react'
+import { type PropsWithChildren, type ReactElement, useEffect, useState } from 'react'
 import AuthContext from './context'
 
 type AuthProviderProps = PropsWithChildren<{}>
 
 export default function UserProvider({ children }: AuthProviderProps): ReactElement | null {
   const token = localStorage.getItem('auth_token')
+  const { setTracks } = usePlayer()
+
   const [accessToken, setAccessToken] = useState(token)
-  const apolloClient = useApolloClient()
 
   useEffect(() => {
     if (token) {
@@ -19,21 +20,19 @@ export default function UserProvider({ children }: AuthProviderProps): ReactElem
         setAccessToken(null)
       }
     }
-  }, [token])
+  }, [token, setAccessToken])
 
-  const auth = useCallback(
-    (token: string): void => {
-      localStorage.setItem('auth_token', token)
-      setAccessToken(token)
-    },
-    [setAccessToken]
-  )
+  const auth = (token: string): void => {
+    localStorage.setItem('auth_token', token)
+    setAccessToken(token)
+    setTracks([])
+  }
 
-  const logout = useCallback((): void => {
+  const logout = (): void => {
     localStorage.removeItem('auth_token')
     setAccessToken(null)
-    apolloClient.resetStore()
-  }, [setAccessToken, apolloClient])
+    setTracks([])
+  }
 
   return <AuthContext.Provider value={{ accessToken, auth, logout }}>{children}</AuthContext.Provider>
 }

@@ -21,7 +21,7 @@ export default function AddPlaylist(props: AddPlaylistProps): ReactElement {
       </IconButton>
       <Modal sx={{ position: 'absolute' as 'absolute', top: '35%', left: '35%', maxWidth: '40rem', width: '100%' }} open={isOpen} onClose={handleClose}>
         <DialogContent>
-          <ModalForm onRefreshList={onRefreshList} />
+          <ModalForm onRefreshList={onRefreshList} onClose={handleClose} />
         </DialogContent>
       </Modal>
     </>

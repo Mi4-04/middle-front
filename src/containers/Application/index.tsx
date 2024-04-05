@@ -7,16 +7,14 @@ import ToastContainer from './components/ToastContainer'
 
 function App(): ReactElement {
   return (
-    <>
-      <ApolloProvider>
-        <PlayerProvider>
-          <ToastContainer />
-          <AuthProvider>
-            <Root />
-          </AuthProvider>
-        </PlayerProvider>
-      </ApolloProvider>
-    </>
+    <ApolloProvider>
+      <PlayerProvider>
+        <ToastContainer />
+        <AuthProvider>
+          <Root />
+        </AuthProvider>
+      </PlayerProvider>
+    </ApolloProvider>
   )
 }
 

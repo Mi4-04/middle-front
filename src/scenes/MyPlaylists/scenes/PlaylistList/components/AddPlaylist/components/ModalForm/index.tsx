@@ -9,6 +9,7 @@ import { Controlls, Header } from './styles'
 
 type ModalFormProps = {
   onRefreshList: () => Promise<void>
+  onClose: () => void
 }
 
 type FormValues = {
@@ -16,7 +17,7 @@ type FormValues = {
 }
 
 export default function ModalForm(props: ModalFormProps): ReactElement {
-  const { onRefreshList } = props
+  const { onRefreshList, onClose } = props
   const [createPlaylist] = useCreatePlaylistMutation()
 
   const handleSubmit = async (values: FormValues): Promise<void> => {
@@ -30,6 +31,7 @@ export default function ModalForm(props: ModalFormProps): ReactElement {
         }
       })
       await onRefreshList()
+      onClose()
     } catch (e) {
       showToast(getDefaultErrorMessage(e), { type: 'error', autoClose: false })
     }
