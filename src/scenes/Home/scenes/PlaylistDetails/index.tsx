@@ -1,5 +1,7 @@
 import { type ReactElement, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { Track } from '@/api/types'
+import { useUpdatePlaylistMutation } from '@/api/hooks/update-playlist'
 import usePlayer from '@/hooks/usePlayer'
 import usePagination from '@/hooks/usePagination'
 import useSearch from '@/hooks/useSearch'
@@ -13,6 +15,7 @@ export default function PlaylistDetails(): ReactElement {
   const [currentOffset, setCurrentOffset] = useState(pagination.value.offset)
   const search = useSearch({ onChange: () => pagination.reset() })
   const { audioRef, setTracks, setTrackIndex, trackIndex, trackStates, setTrackState } = usePlayer()
+  const [updatePlaylist] = useUpdatePlaylistMutation()
 
   const { data, loading } = useGetTracksForGuestQuery({
     variables: {
@@ -41,7 +44,14 @@ export default function PlaylistDetails(): ReactElement {
     }
   }
 
+  const handleAddTrackToPlaylist = async (track: Track, isSendPlaylistId: string): Promise<void> => {
+    const { available, id, __typename, ...rest } = track
+    await updatePlaylist({ variables: { input: { track: rest, playlistId: isSendPlaylistId } } })
+  }
+
   if (loading) return <h1>Loading...</h1>
 
-  return <TrackList tracks={tracks} count={count} pagination={pagination} search={search} onTogglePlay={handleTogglePlay} />
+  return (
+    <TrackList tracks={tracks} count={count} pagination={pagination} search={search} onTogglePlay={handleTogglePlay} onAddTrack={handleAddTrackToPlaylist} />
+  )
 }
